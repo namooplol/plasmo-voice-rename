@@ -18,7 +18,6 @@ public final class Plasmoname {
     private final PlasmonameAddon addon = new PlasmonameAddon();
 
     public Plasmoname() throws IOException {
-        // ✅ Load addon ใน Forge constructor ตาม docs
         MinecraftForge.EVENT_BUS.register(this);
         PlasmoVoiceServer.getAddonsLoader().load(addon);
 
