@@ -20,7 +20,11 @@ public class JoinListener {
         String name = player.getGameProfile().getName();
 
         // เก็บชื่อปกติของ Minecraft ลง config
-        ConfigManager.setDisplayName(uuid, name);
+        try{
+         ConfigManager.getDisplayName(uuid);
+        } catch (Exception e) {
+            ConfigManager.setDisplayName(uuid, name);
+        }
 
     }
 }
