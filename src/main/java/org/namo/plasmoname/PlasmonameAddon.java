@@ -67,7 +67,7 @@ public final class PlasmonameAddon implements AddonInitializer {
                             if (source instanceof ServerPlayerSource playerSource) {
                                 if (playerSource.getPlayer().equals(player)) {
                                     playerSource.setName(ConfigManager.getDisplayName(String.valueOf(PlayerUUID)));
-                                    System.out.println(player.getInstance().getName());
+                                    // System.out.println(player.getInstance().getName());
                                     break;
                                 }
                             }
