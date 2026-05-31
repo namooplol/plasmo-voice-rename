@@ -51,7 +51,6 @@ public final class PlasmonameAddon implements AddonInitializer {
             this.voiceServer = voiceServer;
         }
 
-
         @EventSubscribe(ignoreCancelled = false)
         public void onPlayerSpeak(PlayerSpeakEvent event) throws IOException {
             VoiceServerPlayer player = (VoiceServerPlayer) event.getPlayer();
@@ -65,7 +64,7 @@ public final class PlasmonameAddon implements AddonInitializer {
                         if (sources == null) return;
                         for (ServerAudioSource<?> source : sources) {
                             if (source instanceof ServerPlayerSource playerSource) {
-                                if (playerSource.getPlayer().equals(player)) {
+                                if (playerSource.getPlayer().equals(player) || ConfigManager.getDisplayName(String.valueOf(PlayerUUID)) != "Unknown") {
                                     playerSource.setName(ConfigManager.getDisplayName(String.valueOf(PlayerUUID)));
                                     // System.out.println(player.getInstance().getName());
                                     break;
