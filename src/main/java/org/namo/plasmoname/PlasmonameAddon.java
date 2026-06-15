@@ -64,7 +64,7 @@ public final class PlasmonameAddon implements AddonInitializer {
                         if (sources == null) return;
                         for (ServerAudioSource<?> source : sources) {
                             if (source instanceof ServerPlayerSource playerSource) {
-                                if (playerSource.getPlayer().equals(player) || ConfigManager.getDisplayName(String.valueOf(PlayerUUID)) != "Unknown") {
+                                if (playerSource.getPlayer().equals(player)) {
                                     playerSource.setName(ConfigManager.getDisplayName(String.valueOf(PlayerUUID)));
                                     // System.out.println(player.getInstance().getName());
                                     break;

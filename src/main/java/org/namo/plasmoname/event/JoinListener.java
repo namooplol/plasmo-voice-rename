@@ -17,13 +17,12 @@ public class JoinListener {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
 
         String uuid = player.getUUID().toString();
-        String name = player.getGameProfile().getName();
+        String minecraftName = player.getGameProfile().getName();
 
-        // เก็บชื่อปกติของ Minecraft ลง config
-        try{
-         ConfigManager.getDisplayName(uuid);
-        } catch (Exception e) {
-            ConfigManager.setDisplayName(uuid, name);
+        // ถ้าผู้เล่นยังไม่มีชื่อที่ตั้งเอง (custom name) ให้ใช้ชื่อ Minecraft เป็นค่าเริ่มต้น
+        String customName = ConfigManager.getDisplayName(uuid);
+        if (customName == null || customName.equals("Unknown")) {
+            ConfigManager.setDisplayName(uuid, minecraftName);
         }
 
     }

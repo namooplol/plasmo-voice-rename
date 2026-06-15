@@ -15,23 +15,26 @@ public class rename {
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(
                 Commands.literal("rename")
-                        .requires(src ->
-                                src.hasPermission(2)
-                        )
                         .then(Commands.argument("target", EntityArgument.player())
                                 .then(Commands.argument("name", StringArgumentType.greedyString())
                                         .executes(ctx -> {
+                                            ServerPlayer executor = ctx.getSource().getPlayer();
+                                            ServerPlayer target = EntityArgument.getPlayer(ctx, "target");
+
+                                            boolean isSelf = executor != null && executor.getUUID().equals(target.getUUID());
+                                            boolean hasAdminPerm = ctx.getSource().hasPermission(2);
+
+                                            if (!isSelf && !hasAdminPerm) {
+                                                throw new RuntimeException("You don't have permission to rename other players");
+                                            }
+
                                             try {
                                                 ConfigManager.init();
                                             } catch (IOException e) {
                                                 throw new RuntimeException(e);
                                             }
-                                            ServerPlayer target =
-                                                    EntityArgument.getPlayer(ctx, "target");
 
-                                            String name =
-                                                    StringArgumentType.getString(ctx, "name");
-
+                                            String name = StringArgumentType.getString(ctx, "name");
                                             String uuid = target.getUUID().toString();
 
                                             try {
@@ -39,7 +42,6 @@ public class rename {
                                             } catch (IOException e) {
                                                 throw new RuntimeException(e);
                                             }
-
 
                                             return 1;
                                         })
